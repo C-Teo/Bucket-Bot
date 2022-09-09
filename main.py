@@ -1,4 +1,4 @@
-import string
+
 import discord
 from discord.ext import commands
 import dotenv
@@ -16,22 +16,29 @@ async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
 
-@bot.command()
+@bot.command() # Doubles the given Float
 async def double(ctx: commands.Context, number: float):
-    await ctx.send(number * 3)
+    await ctx.send(number*2)
 
-@bot.command()
-async def meme(ctx: commands.Context, meme: str, *args):
-    match meme.lower():
-        case "lisa":
-            # https://cdn.nathanferns.xyz/memes/lisa?
-            await ctx.send("https://cdn.nathanferns.xyz/memes/lisa?text="+args[0])
+@bot.command() # Change My Mind Parameters -> [StrText]
+async def changemymind(ctx: commands.Context, *, text: str):
+    arr = convert_param(text)
+    await ctx.send("https://mime.rcp.r9n.co/memes/changemymind?text="+arr[0])
 
-        case "Office":
-            await ctx.send("You specified: The Office")
+@bot.command() # Clown Parameters -> [StrOne] [StrTwo] [StrThree] [StrFour]
+async def clown(ctx: commands.Context, *, text: str):
+    arr = convert_param(text)
+    await ctx.send("https://cdn.nathanferns.xyz/memes/clown?one="+arr[0]+"&two="+arr[1]+"&three="+arr[2]+"&four="+arr[3])
 
-        case _:
-            await ctx.send("You sent nothing.")
+@bot.command() # Office Parameters -> [Img] [Str] [Str] [Str] [Str] [Str]
+async def office(ctx: commands.Context, *, text: str):
+    arr = convert_param(text)
+    await ctx.send(""+arr[0])
+
+@bot.command() # Lisa Parameters -> [StrText]
+async def lisa(ctx: commands.Context, *, text: str):
+    arr = convert_param(text)
+    await ctx.send("https://cdn.nathanferns.xyz/memes/lisa?text="+arr[0])
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -42,5 +49,12 @@ async def on_command_error(ctx, error):
         await ctx.send("Invalid arguements, sorry! :(")
         return
     await ctx.send("Another Problem has occured!")
+
+def convert_param(text: str):
+    arr = text.split(',')
+    for i in range(len(arr)):
+        arr[i] = arr[i].strip()
+        arr[i] = arr[i].replace(" ","%20")
+    return arr
 
 bot.run(dotenv.dotenv_values().get('TOKEN'), log_handler=handler)
