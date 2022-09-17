@@ -1,6 +1,7 @@
 
 import discord
 from discord.ext import commands
+from urllib.parse import quote
 import dotenv
 import logging
 
@@ -53,8 +54,7 @@ async def on_command_error(ctx, error):
 def convert_param(text: str):
     arr = text.split(',')
     for i in range(len(arr)):
-        arr[i] = arr[i].strip()
-        arr[i] = arr[i].replace(" ","%20")
+        arr[i] = quote(arr[i])
     return arr
 
 bot.run(dotenv.dotenv_values().get('TOKEN'), log_handler=handler)
