@@ -24,22 +24,29 @@ async def double(ctx: commands.Context, number: float):
 @bot.command() # Change My Mind Parameters -> [StrText]
 async def changemymind(ctx: commands.Context, *, text: str):
     arr = convert_param(text)
-    await ctx.send("https://mime.rcp.r9n.co/memes/changemymind?text="+arr[0])
-
-@bot.command() # Clown Parameters -> [StrOne] [StrTwo] [StrThree] [StrFour]
-async def clown(ctx: commands.Context, *, text: str):
-    arr = convert_param(text)
-    await ctx.send("https://cdn.nathanferns.xyz/memes/clown?one="+arr[0]+"&two="+arr[1]+"&three="+arr[2]+"&four="+arr[3])
+    if len(arr) >= 1:
+        await ctx.send("https://mime.rcp.r9n.co/memes/changemymind?text="+arr[0])
+    else:
+        raise discord.ext.commads.MissingRequiredArguement("Change My Mind Parameters -> [StrText]")
 
 @bot.command() # Office Parameters -> [Img] [Str] [Str] [Str] [Str] [Str]
 async def office(ctx: commands.Context, *, text: str):
     arr = convert_param(text)
-    await ctx.send(""+arr[0])
+    if len(arr) >= 6:
+        await ctx.send("https://mime.rcp.r9n.co/memes/office?boss_image="
+        +arr[0]+"&boss_text="+arr[1]+"&top="+arr[2]+"&left="+arr[3]+"&middle="+arr[4]+"&right="+arr[5])
+    else:
+        raise discord.ext.commads.MissingRequiredArguement("Office Parameters -> [Img] [Str] [Str] [Str] [Str] [Str]") 
 
 @bot.command() # Lisa Parameters -> [StrText]
 async def lisa(ctx: commands.Context, *, text: str):
     arr = convert_param(text)
     await ctx.send("https://cdn.nathanferns.xyz/memes/lisa?text="+arr[0])
+
+@bot.command() # Clown Parameters -> [StrOne] [StrTwo] [StrThree] [StrFour]
+async def clown(ctx: commands.Context, *, text: str):
+    arr = convert_param(text)
+    await ctx.send("https://cdn.nathanferns.xyz/memes/clown?one="+arr[0]+"&two="+arr[1]+"&three="+arr[2]+"&four="+arr[3])
 
 @bot.event
 async def on_command_error(ctx, error):
