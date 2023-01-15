@@ -1,0 +1,24 @@
+{
+  "name": "bucket-bot",
+  "version": "1.0.0",
+  "description": "This repository is for the Discord Bot I am currently programming in Discord.js.\r  The old files of the project have been removed as I shift over from a Python library to JavaScript.\r  >This project is back to being worked on, and updates should start popping up shortly in the future.",
+  "main": "src/bot.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C-Teo/Bucket-Bot.git"
+  },
+  "keywords": [],
+  "author": "C-Teo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C-Teo/Bucket-Bot/issues"
+  },
+  "homepage": "https://github.com/C-Teo/Bucket-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
